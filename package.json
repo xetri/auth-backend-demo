@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "bulma": "^0.9.4",
+    "react": "18",
+    "react-dom": "18",
+    "wouter": "^2.12.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.11.0",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "parcel": "^2.11.0",
+    "process": "^0.11.10",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "start": "parcel serve index.html",
+    "prod": "parcel build index.html --no-cache --public-url ."
+  }
+}

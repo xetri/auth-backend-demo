@@ -1,0 +1,23 @@
+$clr : black;
+$bg : white;
+$fsize : 20px;
+
+h1 {
+	color: $clr;
+	background: $bg;
+}
+
+p {
+	font-size: $fsize;
+}
+
+label:has(+ input[required])::after {
+	content: ' *';
+	color: darkred;
+}
+
+.err-msg {
+	position: fixed;
+	z-index: 10;
+	right: 0;
+}
