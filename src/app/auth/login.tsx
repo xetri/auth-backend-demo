@@ -1,8 +1,7 @@
-import React, { useState } from "react"
-import { useLocation } from "wouter"
+import React from "react"
 
 import { API_URL } from "./"
-import { UserCtx } from "../ctx"
+import {useAuth } from "../../ctx"
 import { Redirect } from "wouter"
 
 type Payload = {
@@ -10,31 +9,40 @@ type Payload = {
     password : string
 }
 
-async function handler(e : any) {
-    e.preventDefault()
-
-    const { id, pwd } = e.target
-    let payload : Payload = {
-        id       : id.value,
-        password : pwd.value,
-    }
-
-    try {
-    const res = await fetch(`${API_URL}/login`, {
-        method: 'POST',
-        credentials: "include",
-        body: JSON.stringify(payload),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    } catch(e) {
-    }
-}
-
 export function Login() {
-    const user = React.useContext(UserCtx)
+    const user = useAuth()
+
+    if (user.loading) return <h1>Loading...</h1>
+
     if (user.data) return <Redirect to="/"/>
+
+    async function handler(e : any) {
+        e.preventDefault()
+
+        const { id, pwd } = e.target
+        let payload : Payload = {
+            id       : id.value,
+            password : pwd.value,
+        }
+
+        try {
+        const res = await fetch(`${API_URL}/login`, {
+            method: 'post',
+            credentials: "include",
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+
+        if (200 == res.status) {
+            user.set(await res.json())
+        }
+
+        } catch(e) {
+            console.log(e)
+        }
+    }
 
     return (<>
         <div className="container">
@@ -55,4 +63,3 @@ export function Login() {
         </div>  
 	</>)
 }
-

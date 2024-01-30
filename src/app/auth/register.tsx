@@ -2,7 +2,7 @@ import React from "react"
 import { Link, Redirect } from "wouter"
 
 import { API_URL } from "./"
-import { UserCtx } from "../ctx"
+import {  useAuth } from "../../ctx"
 
 type Payload = {
     name     : string
@@ -12,6 +12,11 @@ type Payload = {
 }
 
 export function Register() {
+    const user = useAuth()
+
+    if (user.loading) return <h1>Loading...</h1>
+    if (user.data) return <Redirect to="/"/>
+
     let [errMsg, setErrMsg] = React.useState<null | string>(null)
     let [errMsgHidden, setErrMsgHidden] = React.useState(true)
 
@@ -50,14 +55,15 @@ export function Register() {
             },
             body: JSON.stringify(payload)
         })
-        console.log(await res.text())
+
+        if (201 == res.status) {
+            user.set(await res.json())
+        }
+
         } catch(e) {
-            console.log(e)
+            setError("Unable to register: "+ e, 1500)
         }
     }
-
-    const user = React.useContext(UserCtx)
-    if (user.data) return <Redirect to="/"/>
 
     return (<>
         <div className="container">

@@ -1,7 +1,8 @@
 import { t } from "elysia"
 import bcrypt from "bcryptjs"
-import db from "../../db"
 import { randomBytes } from "crypto"
+
+import db from "../../db"
 import { StatusCode, isEmail, securePwd, token_name, TokenMaxAge } from "../../utils"
 
 export default async function register(req : any) {
@@ -22,22 +23,29 @@ export default async function register(req : any) {
 		if (!isEmail(email)) return StatusCode.BadRequest
 		data.email = email
 	}
-	
-	try {
-		const user = await db.user.create({ data })
-		let token = await req.jwt.sign({
-			id	 : user.id,
-			user : user.username,
-			name : user.name,
-		})
 
-		req.setCookie(token_name, token, { expires : TokenMaxAge() } )
+	let user : any
+	try {
+		user = await db.user.create({ data })
 		status = StatusCode.Created
 	} catch(e) {
 		status = StatusCode.Conflict
 	}
-
 	req.set.status = status
+
+	if (status == StatusCode.Created) {
+		let payload = {	
+			id	 : user.id,
+			user : user.username,
+			name : user.name,
+		}
+		let token = await req.jwt.sign(payload)
+		req.setCookie(token_name, token, { expires : TokenMaxAge() } )
+
+		return payload
+	}
+
+	return null
 }
 
 export const RegisterPayload = t.Object({

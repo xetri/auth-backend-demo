@@ -1,13 +1,10 @@
-import React, { useState } from "react"
-import { Redirect } from "wouter"
+import React, { useContext } from "react";
+import { Redirect } from "wouter";
 
-import { useAuth } from "./../ctx"
+import { UserCtx } from "../ctx";
 
-export default () => {
-	const user = useAuth()
-
-	if (user.loading) return <h1>Loading...</h1>
-
+export default function() {
+	const user = useContext(UserCtx)
 	if (!user.data) return <Redirect to="/login"/>
 
 	return (<>

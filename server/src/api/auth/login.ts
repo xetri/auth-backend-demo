@@ -52,18 +52,21 @@ export default async function login( { jwt, body, set, setCookie } : any) {
 			status = StatusCode.NotFound
 		}
 	}
+	set.status = status
 
-	if (status = StatusCode.OK) {
-		let token = await jwt.sign({
+	if (StatusCode.OK == status) {
+		let payload = {
 			id	 : user.id,
 			user : user.username,
 			name : user.name,
-		})
+		}
+		let token = await jwt.sign(payload)
 		setCookie(token_name, token, { expires : TokenMaxAge() } )
-		status = 200
+
+		return payload
 	}
 
-	set.status = status
+	return null
 }
 
 export const LoginPayload = t.Object({

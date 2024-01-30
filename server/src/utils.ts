@@ -3,7 +3,7 @@ export const isEmail = (text : string) => /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\
 export const securePwd = (salt : string, pwd : string) => (salt + pwd + salt)
 
 export const token_name = "_eauth"
-export const TokenMaxAge =  () => new Date(Date.now() + (9 * (365 * 86400 * 1000)));
+export const TokenMaxAge =  () => new Date(Date.now() + (24 * (365 * 86400 * 1000)));
 
 export type AuthResponse = {
 	status : StatusCode
