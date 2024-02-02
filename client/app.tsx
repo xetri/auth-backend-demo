@@ -15,10 +15,6 @@ export default function() {
 				<Route path="/" component={Home}/>
 				<Route path="/login" component={Login}/>
 				<Route path="/register" component={Register}/>
-				{/* <Route path="/me" component={Profile} />
-				<Route path="/u/:user" component={Profile} /> 
-				<Route path="/o/:org" component={Profile} /> 
-				*/}
 				<Route component={N404}/>
 			</Switch>
 		</UserProvider>

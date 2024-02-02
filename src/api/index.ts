@@ -7,7 +7,7 @@ import me from "./me"
 
 const app = new Elysia()
 
-app.group("/_/api", (app) =>
+app.group("/api", (app) =>
 	app
 	  .get("/me", me)
 	  .get("/logout", logout)

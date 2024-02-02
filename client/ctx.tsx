@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { API_URL } from "./app/auth"
+import { API_URL } from "./app/const"
 
 export type User = {
     id	    : string
@@ -18,7 +18,7 @@ export const UserCtx = createContext<IUserCtx>({} as IUserCtx)
 
 export const useAuth = () => useContext(UserCtx)
 
-export function UserProvider ( { children } ) {
+export function UserProvider ( { children } : any ) {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState<User | null>(null)
 
@@ -34,7 +34,7 @@ export function UserProvider ( { children } ) {
     React.useEffect(() => {
        (async function() {
 	   try {
-	    let u = await (await fetch(`${API_URL}` + '/me', {
+	    let u : any = await (await fetch(`${API_URL}` + '/me', {
 		credentials: 'include'
 	    })).json()
 

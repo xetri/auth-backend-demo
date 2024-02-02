@@ -1,7 +1,7 @@
 import React from "react"
 
-import { API_URL } from "./"
-import {useAuth } from "../../ctx"
+import { API_URL } from "../const"
+import { useAuth } from "../../ctx"
 import { Redirect } from "wouter"
 
 type Payload = {
@@ -36,7 +36,7 @@ export function Login() {
         })
 
         if (200 == res.status) {
-            user.set(await res.json())
+            user.set(await res.json() as any)
         }
 
         } catch(e) {

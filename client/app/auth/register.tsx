@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, Redirect } from "wouter"
 
-import { API_URL } from "./"
+import { API_URL } from "../const"
 import {  useAuth } from "../../ctx"
 
 type Payload = {
@@ -35,7 +35,7 @@ export function Register() {
         let {uname, name, email, pwd, confirmpwd} = e.target
 
         if (pwd.value != confirmpwd.value) {
-            setError("Confirm password donot matches with the password !", 1200);
+            setError("Confirm password does not match with the password !", 1200);
             return;
         }
 
@@ -57,7 +57,7 @@ export function Register() {
         })
 
         if (201 == res.status) {
-            user.set(await res.json())
+            user.set(await res.json() as any)
         }
 
         } catch(e) {

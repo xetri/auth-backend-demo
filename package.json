@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "elysia": "^0.8.14",
+    "@elysiajs/cookie": "0.7.0",
+    "@elysiajs/cors": "^0.7.2",
+    "@elysiajs/jwt": "^0.8.0",
+    "@elysiajs/static": "^0.8.1",
+    "bcryptjs": "^2.4.3",
+    "@prisma/client": "^5.8.1",
     "bulma": "^0.9.4",
     "react": "18",
     "react-dom": "18",
@@ -7,14 +14,21 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.11.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/bun": "latest",
     "@types/react": "18",
     "@types/react-dom": "18",
     "parcel": "^2.11.0",
+    "prisma": "^5.8.1",
     "process": "^0.11.10",
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "start": "parcel serve index.html",
-    "prod": "parcel build index.html --no-cache --public-url ."
+    "start": "bun run prod && bun run db && bun run .",
+    "dev": "bun run --hot .",
+    "prod": "parcel build client/index.html --no-cache --public-url public --dist-dir public",
+    "db": "bun run db:push && bun run db:pull",
+    "db:push": "prisma db push",
+    "db:pull": "prisma db pull"
   }
 }

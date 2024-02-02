@@ -2,6 +2,7 @@ import { Elysia } from "elysia"
 import { cors } from "@elysiajs/cors"
 import { cookie } from "@elysiajs/cookie"
 import { jwt } from "@elysiajs/jwt"
+import { staticPlugin } from "@elysiajs/static"
 
 import db from "./src/db"
 import apis from "./src/api"
@@ -25,6 +26,8 @@ const app = new Elysia()
 	secret : Bun.env.JWT_SECRET as string,
 }))
 .use(apis)
+.use(staticPlugin())
+.get("/*", _ => Bun.file("./public/index.html"))
 
 app.listen(PORT, () => console.log(`Running at http://${app.server?.hostname}:${app.server?.port}`))
 
