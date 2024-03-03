@@ -15,6 +15,7 @@ lerna-debug.log*
 .cache
 *.db
 .parcel-cache/
+public/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 

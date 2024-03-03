@@ -1,13 +1,14 @@
 {
   "dependencies": {
-    "elysia": "^0.8.14",
     "@elysiajs/cookie": "0.7.0",
     "@elysiajs/cors": "^0.7.2",
+    "@elysiajs/html": "^0.8.0",
     "@elysiajs/jwt": "^0.8.0",
     "@elysiajs/static": "^0.8.1",
-    "bcryptjs": "^2.4.3",
     "@prisma/client": "^5.8.1",
+    "bcryptjs": "^2.4.3",
     "bulma": "^0.9.4",
+    "elysia": "^0.8.14",
     "react": "18",
     "react-dom": "18",
     "wouter": "^2.12.1"
@@ -26,7 +27,7 @@
   "scripts": {
     "start": "bun run prod && bun run db && bun run .",
     "dev": "bun run --hot .",
-    "prod": "parcel build client/index.html --no-cache --public-url public --dist-dir public",
+    "prod": "parcel build client/index.html --no-cache --public-url public --dist-dir public --no-source-maps",
     "db": "bun run db:push && bun run db:pull",
     "db:push": "prisma db push",
     "db:pull": "prisma db pull"
